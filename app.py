@@ -9,6 +9,7 @@ def main():
     
     if choice == "Lighthouse Analiser":
         verify_site()
+
     elif choice == "About":
         about()
 
