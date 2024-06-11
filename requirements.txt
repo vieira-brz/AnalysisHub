@@ -1,0 +1,5 @@
+selenium
+streamlit
+beautifulsoup4
+pandas
+matplotlib
