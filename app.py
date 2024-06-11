@@ -4,10 +4,10 @@ from menus.About import about
 
 # Menu principal
 def main():    
-    menu = ["About", "Lighthouse Analiser"]
+    menu = ["About", "Web Performance Analiser"]
     choice = st.sidebar.selectbox("Menu", menu)
     
-    if choice == "Lighthouse Analiser":
+    if choice == "Web Performance Analiser":
         verify_site()
 
     elif choice == "About":
