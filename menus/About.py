@@ -14,23 +14,14 @@ def about():
         .content {
             gap: 20px;
             width: 100%;
-            padding: 10px;
             display: flex;
             margin-top: 40px;
             text-align: center;
             align-items: center;
         }
-
-        .content > img {
-            width: 20%;
-            height: 20%;
-            margin-right: 20px;
-            border-radius: 50%;
-        }
         </style>
 
         <div class="content">
-            <img src="https://avatars.githubusercontent.com/vieira-brz" />
             <label>Connect with me:</label>
             <a href="https://github.com/vieira-brz" target="_blank"><img width="80" src="https://pngimg.com/uploads/github/github_PNG23.png" style="background:white;border-radius:5px;"/></a> |
             <a href="https://linkedin.com/in/vinicius-vieira-braz" target="_blank"><img width="80" src="https://static.licdn.com/aero-v1/sc/h/d9us1rzvy2i1u6h4cnr4pexfb"/></a> |
@@ -42,11 +33,12 @@ def about():
 
 # Função para exibir as informações do desenvolvedor na barra lateral
 def developer_info():
-    st.sidebar.subheader("Desenvolvido por:")
+    # st.sidebar.subheader("Desenvolvido por:")
     st.sidebar.markdown("""
         <style>
         .content-sidebar {
             display: flex; 
+            margin-top: 10px;
             flex-direction: column;
         }
 
