@@ -15,6 +15,7 @@ def about():
             gap: 20px;
             width: 100%;
             display: flex;
+            flex-wrap: wrap;
             margin-top: 40px;
             text-align: center;
             align-items: center;
