@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import matplotlib.pyplot as plt
 import subprocess
-from weasyprint import HTML, default_url_fetcher
+from weasyprint import HTML
 from bs4 import BeautifulSoup
 import requests
 import ctypes.util
