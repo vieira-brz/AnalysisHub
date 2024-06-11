@@ -5,4 +5,3 @@ pandas
 matplotlib
 lighthouse
 xhtml2pdf
-WeasyPrint
