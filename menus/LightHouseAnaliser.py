@@ -2,9 +2,10 @@ import streamlit as st
 import json
 import matplotlib.pyplot as plt
 import subprocess
-from weasyprint import HTML
+from weasyprint import HTML, default_url_fetcher
 from bs4 import BeautifulSoup
 import requests
+import ctypes.util
 
 # Configuração do Streamlit para fundo transparente
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -15,6 +16,12 @@ st.markdown("""
         }
     </style>
     """, unsafe_allow_html=True)
+
+def check_pango():
+    if not ctypes.util.find_library('pango-1.0'):
+        st.error("Pango library is not installed. Please install it to proceed.")
+        return False
+    return True
 
 def run_lighthouse(url):
     # Ensure Lighthouse CLI is in the PATH
@@ -118,31 +125,34 @@ def verify_site():
 
     if st.button("Analyze page load"):
         if url:
-            with st.spinner('Running Lighthouse analysis...'):
-                report, scores = run_lighthouse(url)
-                page_title = get_page_title(url)
-            
-            if report and scores and page_title:
-                st.success("Lighthouse analysis completed successfully.")
+            if check_pango():
+                with st.spinner('Running Lighthouse analysis...'):
+                    report, scores = run_lighthouse(url)
+                    page_title = get_page_title(url)
                 
-                # Extract diagnostics
-                diagnostics = extract_diagnostics(report)
+                if report and scores and page_title:
+                    st.success("Lighthouse analysis completed successfully.")
+                    
+                    # Extract diagnostics
+                    diagnostics = extract_diagnostics(report)
 
-                # Display score for each category in a card
-                for category, score in scores.items():
-                    display_score_card(category, score)
-                    fig = plot_score_pie(category, score)
-                    st.pyplot(fig)
+                    # Display score for each category in a card
+                    for category, score in scores.items():
+                        display_score_card(category, score)
+                        fig = plot_score_pie(category, score)
+                        st.pyplot(fig)
 
-                # Generate charts
-                charts = []
-                # Add your chart generation logic here and append them to the charts list
+                    # Generate charts
+                    charts = []
+                    # Add your chart generation logic here and append them to the charts list
 
-                # Generate PDF report
-                html_content = generate_html_content(url, page_title, scores, diagnostics, charts)
-                pdf = HTML(string=html_content).write_pdf()
-                st.download_button(label="Download PDF Report", data=pdf, file_name="report.pdf", mime="application/pdf")
+                    # Generate PDF report
+                    html_content = generate_html_content(url, page_title, scores, diagnostics, charts)
+                    pdf = HTML(string=html_content).write_pdf()
+                    st.download_button(label="Download PDF Report", data=pdf, file_name="report.pdf", mime="application/pdf")
+                else:
+                    st.error("Lighthouse analysis failed.")
             else:
-                st.error("Lighthouse analysis failed.")
+                st.warning("Please install the Pango library to proceed.")
         else:
             st.warning("Please enter a URL.")
