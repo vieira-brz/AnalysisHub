@@ -5,3 +5,8 @@ pandas
 matplotlib
 lighthouse
 xhtml2pdf
+PyPDF2 
+fpdf 
+jsbeautifier
+openai
+python-dotenv
